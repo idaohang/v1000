@@ -64,6 +64,7 @@ extern u8 system_power_flag ;
 
 #define SYSTEM_CLOCK_CNT 24
 
+#define MY_GITHUB 0
 /**
   * @brief  Inserts a delay time.
   * @param  nTime: specifies the delay time length, in 1 ms.
