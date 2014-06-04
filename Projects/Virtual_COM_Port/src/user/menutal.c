@@ -1469,7 +1469,7 @@ u16 year,month,data ,week,hour,min,sec;
 		}
 
 		OLED_ShowString((80-what_is_numbe_10(temperature_F/10)*8),16,dtbuf);	 	
-		Movie_Show_Img((112-what_is_numbe_10(temperature_F/10)*8),16,bmpdu);
+		Movie_Show_Img(96,16,bmpdu);
 
       if(system_flag_table.myunit.H_W == 0)
       	{
@@ -1904,7 +1904,7 @@ void menu_temp_change_display(void)
 		temperature_F = temperature;
 		sprintf((char *)dtbuf,"%.1f C",temperature_F/10);	//得到经度字符串
 		OLED_ShowString((81-what_is_numbe_10(temperature_F/10)*8),0,dtbuf);
-		Movie_Show_Img((112-what_is_numbe_10(temperature_F/10)*8),0,bmpdu);
+		Movie_Show_Img((96),0,bmpdu);
 		
 	//	conversion(most_temperature);
 //		sprintf((char *)dtbuf,"%c%c.%c",bai,shi,ge);	//most
@@ -1937,7 +1937,7 @@ void menu_temp_change_display(void)
 	#endif	 	
 		sprintf((char *)dtbuf,"%.1f F",temperature_F/10);	//得到经度字符串
 		OLED_ShowString((81-what_is_numbe_10(temperature_F/10)*8),0,dtbuf);
-		Movie_Show_Img((112-what_is_numbe_10(temperature_F/10)*8),0,bmpdu);
+		Movie_Show_Img((96),0,bmpdu);
 			 	
 		temp = (int)(320+(1.8*most_temperature));
 		#if 0
