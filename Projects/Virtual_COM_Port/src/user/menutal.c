@@ -1479,7 +1479,7 @@ u16 year,month,data ,week,hour,min,sec;
      else  if(system_flag_table.myunit.H_W >= 1)
       	{
 
-		gpsx_utc = (floor)(Altitude/100/0.3405);
+		gpsx_utc = (floor)(Altitude/100/0.3048);
 
 		sprintf((char *)&dtbuf,"%dft",gpsx_utc);	//µÃµ½¾­¶È×Ö·û´®	
       	}
@@ -2079,7 +2079,7 @@ void menu_Pressure_display(void)
 		{
 	//	conversion(pressure);
 	pressure_unit = pressure;
-		sprintf((char *)dtbuf,".1fmba",pressure_unit/100);	//µÃµ½¾­¶È×Ö·û´®
+		sprintf((char *)dtbuf,"%.1fmba",pressure_unit/100);	//µÃµ½¾­¶È×Ö·û´®
 		OLED_ShowString(57,0,dtbuf);
 		//conversion(most_pressure);
 		sprintf((char *)dtbuf,"%d",(int)(most_pressure/100));	//µÃµ½¾­¶È×Ö·û´®®
@@ -2092,27 +2092,27 @@ void menu_Pressure_display(void)
 		{
 			pressure_unit = pressure/1.333;
 			//conversion(pressure_unit);
-			sprintf((char *)dtbuf,"%.1fmmhg",pressure_unit);	//µÃµ½¾­¶È×Ö·û´®
+			sprintf((char *)dtbuf,"%.1fmmhg",pressure_unit/100);	//µÃµ½¾­¶È×Ö·û´®
 			OLED_ShowString(57,0,dtbuf);
 			pressure_unit = most_pressure/1.333;
 			//		conversion(pressure_unit);
-			sprintf((char *)dtbuf,"%d",(int)(pressure_unit));	//µÃµ½¾­¶È×Ö·û´®
+			sprintf((char *)dtbuf,"%d",(int)(pressure_unit/100));	//µÃµ½¾­¶È×Ö·û´®
 			OLED_ShowString12(0,16,dtbuf);
 			pressure_unit = lest_pressure/1.333;
 			conversion(pressure_unit);
-			sprintf((char *)dtbuf,"%d",(int)(pressure_unit));	//µÃµ½¾­¶È×Ö·û´®
+			sprintf((char *)dtbuf,"%d",(int)(pressure_unit/100));	//µÃµ½¾­¶È×Ö·û´®
 			OLED_ShowString12(0,46,dtbuf);		      
 		}
 	else if(system_flag_table.myunit.PREE == 3)
 		{
 			pressure_unit = pressure/33.864;
-			sprintf((char *)dtbuf,"%.1fmmhg",pressure_unit);	//µÃµ½¾­¶È×Ö·û´®	
+			sprintf((char *)dtbuf,"%.2fmmhg",pressure_unit/100);	//µÃµ½¾­¶È×Ö·û´®	
 			OLED_ShowString(57,0,dtbuf);
 			pressure_unit = most_pressure/33.864;
-			sprintf((char *)dtbuf,"%d",(int)(pressure_unit));	//µÃµ½¾­¶È×Ö·û´®	
+			sprintf((char *)dtbuf,"%d",(int)(pressure_unit/100));	//µÃµ½¾­¶È×Ö·û´®	
 			OLED_ShowString12(0,16,dtbuf);
 			pressure_unit = lest_pressure/33.864;
-			sprintf((char *)dtbuf,"%d",(int)(pressure_unit));	//µÃµ½¾­¶È×Ö·û´®
+			sprintf((char *)dtbuf,"%d",(int)(pressure_unit/100));	//µÃµ½¾­¶È×Ö·û´®
 			OLED_ShowString12(0,46,dtbuf);	
 		}
 	      
@@ -2220,14 +2220,17 @@ void menu_arruite_change_display(void)
       		}
      else  if(system_flag_table.myunit.H_W >= 1)
       		{
-			sprintf((char *)&dtbuf,"%.1fft",(Altitude/100/0.3045));	//µÃµ½¾­¶È×Ö·û´®
+//      		      if((Altitude/100/0.3045)<10000)
+//				sprintf((char *)&dtbuf,"%.1fft",(Altitude/100/0.3048));	//µÃµ½¾­¶È×Ö·û´®
+   //                    else		  
+				sprintf((char *)&dtbuf,"%.0fft",(Altitude/100/0.3048));	//µÃµ½¾­¶È×Ö·û´®					   	
 			OLED_ShowString(65,0,dtbuf);							
 
-			sprintf((char *)dtbuf,"%.0f",(floor)(most_Altitude/30.45));		    		//µÃµ½ËÙ¶È×Ö·û´®	 
-			OLED_ShowString12((24-(what_is_numbe_10(most_Altitude/30.45)*6)),16,dtbuf);
+			sprintf((char *)dtbuf,"%.0f",(most_Altitude/30.48));		    		//µÃµ½ËÙ¶È×Ö·û´®	 
+			OLED_ShowString12((24-(what_is_numbe_10(most_Altitude/30.48)*6)),16,dtbuf);
 
-			sprintf((char *)dtbuf,"%.0f",(floor)(lest_Altitude/30.45));		    		//µÃµ½ËÙ¶È×Ö·û´®	 
-			OLED_ShowString12((24-(what_is_numbe_10(lest_Altitude/30.45)*6)),46,dtbuf);	
+			sprintf((char *)dtbuf,"%.0f",lest_Altitude/30.48);		    		//µÃµ½ËÙ¶È×Ö·û´®	 
+			OLED_ShowString12((24-(what_is_numbe_10(lest_Altitude/30.48)*6)),46,dtbuf);	
 
       		}
 
@@ -5894,6 +5897,7 @@ if(key_type == KEY_LONG_ENTER)
 						}
 						
 				       system_flag_table.myunit.PREE= menu_setting_postion;
+					   
 					if(menu_setting_postion<3)
 						Movie_Show_Img(4,(menu_setting_postion*12+28),BMP_CHOOSE2);
 					else	
@@ -5914,7 +5918,7 @@ if(key_type == KEY_LONG_ENTER)
 				}
 			else	
 				{
-			
+				if(menu_setting_postion>=3)
 					Movie_Show_Img(4,((setting_tp-3)*12+28),BMP_CHOOSE1);
 				}
 			

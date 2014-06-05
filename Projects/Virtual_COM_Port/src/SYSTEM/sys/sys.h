@@ -119,6 +119,7 @@ typedef struct
 	UNIT_format myunit;
 	personal_data personal_da;	
 	s32 ajust_arr;
+//	s32 ajust_arr_1;
 	u8 ajust_Arr_flag;
 	u8 screen_timer;
 	u8 time_zone;
